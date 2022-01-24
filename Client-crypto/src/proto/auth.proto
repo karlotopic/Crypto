@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+message Tokens {
+    string refreshToken = 1;
+    string accessToken = 2;
+}
+
+message Token {
+    string token = 1;
+}
+
+message User {
+    string username = 1; 
+    string password = 2;
+}
+
+message Coin {
+    string id = 1;
+    string symbol = 2;
+    string name = 3;
+    string image = 4;
+    double current_price = 5;
+    int64 market_cap = 6;
+    double price_change_percentage_24h = 7;
+    int64 total_volume = 8;
+}
+
+message CoinsList {
+    repeated Coin coins = 1;
+}
+
+service AuthService {
+    rpc Login (User) returns (Tokens) {}
+    rpc Register (User) returns (Tokens) {}
+    rpc Token (Token) returns (Tokens) {}
+}
+
+service CoinService {
+    rpc GetCoins (Token) returns (CoinsList) {}
+}
